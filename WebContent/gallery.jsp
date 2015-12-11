@@ -13,8 +13,9 @@
         <script src="script112.js"></script>
     </head>
     <body>
+      
 
-        <header class="navbar-inverse navbar-fixed-top" role="banner">
+        <header class="navbar-inverse" role="banner">
             <nav role="navigation">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
@@ -69,48 +70,44 @@
                     <sql:query dataSource="${webappDataSource}"
                                sql="select IID,TS from IMAGE" var="result" />
 
+<div class="row">
+	<c:forEach var="row" items="${result.rows}">
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<img class="img-rounded" data-toggle="modal" data-target="#${row.IID}" src="${pageContext.servletContext.contextPath }/showGallery?IID=${row.IID}" alt="...">
+				<div class="caption box">
+					<h4>${row.IID}</h4>
+					<h4>${row.TS}</h4>
+					<a class="leftfloat bet_time like"><i class="fa fa-thumbs-o-up"></i>
+						Like <input class="qty1" name="qty1" readonly="readonly" type="text" value="0" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- Modal for image, used to enlarge images in same window -->
+		<div id=${row.IID} class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content modal-lg">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">${row.IID}</h4>
+					</div>
+					<div class="modal-body">
+						<div class="thumbnail">
+							<img class="img-rounded" src="${pageContext.servletContext.contextPath }/showGallery?IID=${row.IID}" alt="...">
+						</div>
+						<a href="#" class="btn btn-primary leftfloat bet_time" role="button">Like</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+</div>
 
-        <div class="row">
 
-                    <c:forEach var="row" items="${result.rows}">
-                        <div class="col-sm-6 col-md-4">
-                            <div class="thumbnail">
-                                <img class="img-rounded" data-toggle="modal" data-target="#myModal6" src="${pageContext.servletContext.contextPath }/showGallery?IID=${row.IID}" alt="...">
-                                <div class="caption box">
-                                    <h4>${row.IID}</h4>
-                                    <h4>${row.TS}</h4>
-                                    <a class="leftfloat bet_time like"><i class="fa fa-thumbs-o-up"></i>
-                                        Like <input class="qty1" name="qty1" readonly="readonly" type="text" value="0" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </c:forEach>
-                </div>
-                    <div class="caption box">
-                        <h4>Please Like and Comment below what you thinked about this gallery :)</h4>
-                        <!--<div class="container">-->
-                        
-                        <!--</div>-->
-                    </div>
-                    <div id="commentdiv">
-                        <h4>Comments</h4>
-                    </div>
-
-                    <div id="leavec">
-                        <input id="commentfield" type="text">
-                        <button>Submit</button>
-                    </div>
-
-            <!-- Modal image, used to enlarge images -->
-            <div id="myModal6" class="modal fade" role="dialog">
-                <div class="modal-dialog">
 
                     <!-- Modal content-->
 
-                </div>
-            </div>
             <!-- Modal Upload-->
             <div id="myModalUpload" class="modal fade" role="dialog">
                 <div class="modal-dialog">
